@@ -1,0 +1,4 @@
+jwt:
+  jwt-key: jk#
+user:
+  info-key: user#

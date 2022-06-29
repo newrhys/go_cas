@@ -1,0 +1,1294 @@
+definitions:
+  request.AddUser:
+    properties:
+      email:
+        type: string
+      mobile:
+        type: string
+      nickname:
+        maxLength: 16
+        minLength: 2
+        type: string
+      password:
+        maxLength: 16
+        minLength: 6
+        type: string
+      status:
+        type: integer
+      username:
+        maxLength: 16
+        minLength: 2
+        type: string
+    required:
+    - nickname
+    - password
+    - status
+    - username
+    type: object
+  request.ApiList:
+    properties:
+      currentPage:
+        type: integer
+      description:
+        type: string
+      method:
+        type: string
+      pageSize:
+        type: integer
+      path:
+        type: string
+    type: object
+  request.ArticleList:
+    properties:
+      currentPage:
+        type: integer
+      pageSize:
+        type: integer
+      status:
+        type: string
+      title:
+        type: string
+    type: object
+  request.AssignRole:
+    properties:
+      role_id:
+        type: integer
+      user_id:
+        type: integer
+    type: object
+  request.AssignSave:
+    properties:
+      api_list:
+        items:
+          type: integer
+        type: array
+      id:
+        type: integer
+      menu_list:
+        items:
+          type: integer
+        type: array
+    type: object
+  request.CategoryList:
+    properties:
+      name:
+        type: string
+      status:
+        type: string
+    type: object
+  request.ChangePassword:
+    properties:
+      confirm_password:
+        maxLength: 16
+        minLength: 6
+        type: string
+      old_password:
+        maxLength: 16
+        minLength: 6
+        type: string
+      password:
+        maxLength: 16
+        minLength: 6
+        type: string
+    required:
+    - confirm_password
+    - old_password
+    - password
+    type: object
+  request.IconList:
+    properties:
+      name:
+        type: string
+    type: object
+  request.Login:
+    properties:
+      password:
+        maxLength: 16
+        minLength: 6
+        type: string
+      username:
+        maxLength: 16
+        minLength: 3
+        type: string
+    required:
+    - password
+    - username
+    type: object
+  request.MenuList:
+    properties:
+      status:
+        type: string
+      title:
+        type: string
+    type: object
+  request.ReqApi:
+    properties:
+      description:
+        type: string
+      method:
+        type: string
+      parent_id:
+        type: integer
+      path:
+        type: string
+    required:
+    - description
+    type: object
+  request.ReqArticle:
+    properties:
+      category_id:
+        type: integer
+      content:
+        type: string
+      description:
+        type: string
+      img:
+        type: string
+      key_word:
+        type: string
+      status:
+        type: integer
+      tag_ids:
+        type: string
+      title:
+        maxLength: 255
+        minLength: 2
+        type: string
+    required:
+    - category_id
+    - content
+    - description
+    - img
+    - status
+    - title
+    type: object
+  request.ReqCategory:
+    properties:
+      name:
+        type: string
+      parent_id:
+        type: integer
+      sort:
+        type: integer
+      status:
+        type: integer
+    required:
+    - name
+    - sort
+    - status
+    type: object
+  request.ReqMenu:
+    properties:
+      code:
+        maxLength: 255
+        minLength: 2
+        type: string
+      component:
+        type: string
+      hidden:
+        type: integer
+      icon:
+        type: string
+      is_link:
+        type: integer
+      keep_alive:
+        type: integer
+      name:
+        type: string
+      parent_id:
+        type: integer
+      path:
+        type: string
+      sort:
+        type: integer
+      status:
+        type: integer
+      title:
+        maxLength: 255
+        minLength: 2
+        type: string
+      type:
+        type: integer
+    required:
+    - code
+    - sort
+    - status
+    - title
+    type: object
+  request.ReqRole:
+    properties:
+      id:
+        type: integer
+      parent_id:
+        type: integer
+      remark:
+        type: string
+      role_name:
+        maxLength: 255
+        minLength: 2
+        type: string
+      status:
+        type: integer
+    required:
+    - role_name
+    type: object
+  request.ReqTag:
+    properties:
+      name:
+        type: string
+      sort:
+        type: integer
+      status:
+        type: integer
+    required:
+    - name
+    - sort
+    - status
+    type: object
+  request.TagList:
+    properties:
+      currentPage:
+        type: integer
+      name:
+        type: string
+      pageSize:
+        type: integer
+      status:
+        type: string
+    type: object
+  request.UpdateUser:
+    properties:
+      email:
+        type: string
+      mobile:
+        type: string
+      nickname:
+        maxLength: 16
+        minLength: 2
+        type: string
+      password:
+        type: string
+      status:
+        type: integer
+      username:
+        maxLength: 16
+        minLength: 2
+        type: string
+    required:
+    - nickname
+    - username
+    type: object
+  request.UserList:
+    properties:
+      currentPage:
+        type: integer
+      pageSize:
+        type: integer
+      status:
+        type: string
+      username:
+        type: string
+    type: object
+host: 127.0.0.1:9111
+info:
+  contact: {}
+  description: gin框架后台管理
+  title: gin框架后台管理demo
+  version: "1.0"
+paths:
+  /api/v1/api/api:
+    post:
+      parameters:
+      - description: 验证参数Bearer和token空格拼接
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 描述
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ReqApi'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":null,"msg":"添加API成功！"}'
+          schema:
+            type: string
+      summary: 添加API
+      tags:
+      - Api
+  /api/v1/api/api/:id:
+    delete:
+      parameters:
+      - description: 验证参数Bearer和token空格拼接
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":null,"msg":"删除API成功！"}'
+          schema:
+            type: string
+      summary: 删除API
+      tags:
+      - Api
+    put:
+      parameters:
+      - description: 验证参数Bearer和token空格拼接
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 描述
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ReqApi'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":null,"msg":"编辑API成功！"}'
+          schema:
+            type: string
+      summary: 编辑API
+      tags:
+      - Api
+  /api/v1/api/getApiList:
+    get:
+      parameters:
+      - description: 验证参数Bearer和token空格拼接
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 菜单名称,状态
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ApiList'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":{"list":[],"total":0,"current_page":1,"page_size":20},"msg":"获取API列表成功！"}'
+          schema:
+            type: string
+      summary: API列表
+      tags:
+      - Api
+  /api/v1/api/parent:
+    get:
+      parameters:
+      - description: 验证参数Bearer和token空格拼接
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":[],"msg":"获取父级API列表成功！"}'
+          schema:
+            type: string
+      summary: 父级API列表
+      tags:
+      - Api
+  /api/v1/article/article:
+    post:
+      parameters:
+      - description: 验证参数Bearer和token空格拼接
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 文章标题
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ReqArticle'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":null,"msg":"添加文章成功！"}'
+          schema:
+            type: string
+      summary: 添加文章
+      tags:
+      - Article
+  /api/v1/article/article/:id:
+    delete:
+      parameters:
+      - description: 验证参数Bearer和token空格拼接
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":null,"msg":"删除文章成功！"}'
+          schema:
+            type: string
+      summary: 删除文章
+      tags:
+      - Article
+    get:
+      parameters:
+      - description: 验证参数Bearer和token空格拼接
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":{},"msg":"获取文章成功！"}'
+          schema:
+            type: string
+      summary: 文章内容
+      tags:
+      - Article
+    put:
+      parameters:
+      - description: 验证参数Bearer和token空格拼接
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 文章标题
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ReqArticle'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":null,"msg":"编辑文章成功！"}'
+          schema:
+            type: string
+      summary: 编辑文章
+      tags:
+      - Article
+  /api/v1/article/getArticleList:
+    get:
+      parameters:
+      - description: 验证参数Bearer和token空格拼接
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 文章标题,状态
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ArticleList'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":{"list":[],"total":7,"current_page":1,"page_size":20},"msg":"获取文章列表成功！"}'
+          schema:
+            type: string
+      summary: 文章列表
+      tags:
+      - Article
+  /api/v1/attach/upload:
+    post:
+      parameters:
+      - description: 文件
+        in: path
+        name: file
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":null,"msg":"上传成功！"}'
+          schema:
+            type: string
+      summary: 上传文件
+      tags:
+      - Attach
+  /api/v1/auth/captcha:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":{"captcha_id":"captcha_id","captcha_length":5},"msg":"获得验证码成功！"}'
+          schema:
+            type: string
+      summary: 验证码
+      tags:
+      - Base
+  /api/v1/auth/login:
+    post:
+      parameters:
+      - description: 用户名,密码
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.Login'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":{"token":"token","expiresAt":1656042399},"msg":"登录成功！"}'
+          schema:
+            type: string
+      summary: 登录
+      tags:
+      - Base
+  /api/v1/auth/loginOut:
+    post:
+      parameters:
+      - description: 验证参数Bearer和token空格拼接
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":null,"msg":"退出成功！"}'
+          schema:
+            type: string
+      summary: 退出
+      tags:
+      - User
+  /api/v1/category/category:
+    post:
+      parameters:
+      - description: 验证参数Bearer和token空格拼接
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 分类名称,状态,排序
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ReqCategory'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":null,"msg":"添加文章分类成功！"}'
+          schema:
+            type: string
+      summary: 添加文章分类
+      tags:
+      - Category
+  /api/v1/category/category/:id:
+    delete:
+      parameters:
+      - description: 验证参数Bearer和token空格拼接
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":null,"msg":"删除文章分类成功！"}'
+          schema:
+            type: string
+      summary: 删除文章分类
+      tags:
+      - Category
+    put:
+      parameters:
+      - description: 验证参数Bearer和token空格拼接
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 分类名称,状态,排序
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ReqCategory'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":null,"msg":"编辑文章分类成功！"}'
+          schema:
+            type: string
+      summary: 编辑文章分类
+      tags:
+      - Category
+  /api/v1/category/getCategoryList:
+    get:
+      parameters:
+      - description: 验证参数Bearer和token空格拼接
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 分类名称
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.CategoryList'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":[],"msg":"获取文章分类列表成功！"}'
+          schema:
+            type: string
+      summary: 文章分类列表
+      tags:
+      - Category
+  /api/v1/category/getSort/:id:
+    get:
+      parameters:
+      - description: 验证参数Bearer和token空格拼接
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":[],"msg":"获得子分类sort最大值成功！"}'
+          schema:
+            type: string
+      summary: 子分类sort最大值
+      tags:
+      - Category
+  /api/v1/category/parent:
+    get:
+      parameters:
+      - description: 验证参数Bearer和token空格拼接
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":[],"msg":"获取父级文章分类列表成功！"}'
+          schema:
+            type: string
+      summary: 父级文章分类列表
+      tags:
+      - Category
+  /api/v1/icon/getIconList:
+    get:
+      parameters:
+      - description: 验证参数Bearer和token空格拼接
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 名称
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.IconList'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":[],"msg":"获取图标列表成功！"}'
+          schema:
+            type: string
+      summary: 图标列表
+      tags:
+      - Icon
+  /api/v1/menu/getMenuList:
+    get:
+      parameters:
+      - description: 验证参数Bearer和token空格拼接
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 描述
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.MenuList'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":[],"msg":"获取菜单列表成功！"}'
+          schema:
+            type: string
+      summary: 菜单列表
+      tags:
+      - Menu
+  /api/v1/menu/getSort/:id:
+    get:
+      parameters:
+      - description: 验证参数Bearer和token空格拼接
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":[],"msg":"获得子菜单sort最大值成功！"}'
+          schema:
+            type: string
+      summary: 子菜单sort最大值
+      tags:
+      - Menu
+  /api/v1/menu/menu:
+    post:
+      parameters:
+      - description: 验证参数Bearer和token空格拼接
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 菜单名称,权限code,排序
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ReqMenu'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":null,"msg":"添加菜单成功！"}'
+          schema:
+            type: string
+      summary: 添加菜单
+      tags:
+      - Menu
+  /api/v1/menu/menu/:id:
+    delete:
+      parameters:
+      - description: 验证参数Bearer和token空格拼接
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":null,"msg":"删除菜单成功！"}'
+          schema:
+            type: string
+      summary: 删除菜单
+      tags:
+      - Menu
+    put:
+      parameters:
+      - description: 验证参数Bearer和token空格拼接
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 菜单名称,权限code,排序
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ReqMenu'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":null,"msg":"编辑菜单成功！"}'
+          schema:
+            type: string
+      summary: 编辑菜单
+      tags:
+      - Menu
+  /api/v1/menu/parent:
+    get:
+      parameters:
+      - description: 验证参数Bearer和token空格拼接
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":[],"msg":"获取父级菜单列表成功！"}'
+          schema:
+            type: string
+      summary: 父级菜单列表
+      tags:
+      - Menu
+  /api/v1/record/getRecordList:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":{"list":[],"total":28,"current_page":1,"page_size":20},"msg":"获取操作记录成功！"}'
+          schema:
+            type: string
+      summary: 获取操作记录列表
+      tags:
+      - Record
+  /api/v1/record/record/:id:
+    delete:
+      parameters:
+      - description: 验证参数Bearer和token空格拼接
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":null,"msg":"删除操作记录成功！"}'
+          schema:
+            type: string
+      summary: 删除操作记录
+      tags:
+      - Record
+  /api/v1/role/getAssignPermissionApi/:id:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":{"check_list":[],"api_list":[]},"msg":"获取角色API列表成功！"}'
+          schema:
+            type: string
+      summary: 获取角色列表
+      tags:
+      - Role
+  /api/v1/role/getAssignPermissionTree/:id:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":{"check_list":[],"menu_list":[]},"msg":"获取角色菜单列表成功！"}'
+          schema:
+            type: string
+      summary: 获取角色菜单列表
+      tags:
+      - Role
+  /api/v1/role/role:
+    post:
+      parameters:
+      - description: 验证参数Bearer和token空格拼接
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 角色名称
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ReqRole'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":null,"msg":"添加角色成功！"}'
+          schema:
+            type: string
+      summary: 添加角色
+      tags:
+      - Role
+  /api/v1/role/role/:id:
+    delete:
+      parameters:
+      - description: 验证参数Bearer和token空格拼接
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":null,"msg":"删除角色成功！"}'
+          schema:
+            type: string
+      summary: 删除角色
+      tags:
+      - Role
+    put:
+      parameters:
+      - description: 验证参数Bearer和token空格拼接
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 角色名称
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ReqRole'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":null,"msg":"编辑角色成功！"}'
+          schema:
+            type: string
+      summary: 编辑角色
+      tags:
+      - Role
+  /api/v1/role/roleAssignSave:
+    post:
+      parameters:
+      - description: 验证参数Bearer和token空格拼接
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 角色id
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.AssignSave'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":null,"msg":"分配权限成功！"}'
+          schema:
+            type: string
+      summary: 分配权限
+      tags:
+      - Role
+  /api/v1/tag/getSelectTagList:
+    get:
+      parameters:
+      - description: 验证参数Bearer和token空格拼接
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":{},"msg":"获得选择标签列表成功！"}'
+          schema:
+            type: string
+      summary: 选择标签列表
+      tags:
+      - Tag
+  /api/v1/tag/getSort:
+    get:
+      parameters:
+      - description: 验证参数Bearer和token空格拼接
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":{},"msg":"获得标签sort最大值成功！"}'
+          schema:
+            type: string
+      summary: 标签sort最大值
+      tags:
+      - Tag
+  /api/v1/tag/getTagList:
+    get:
+      parameters:
+      - description: 验证参数Bearer和token空格拼接
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 标签名称,状态
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.TagList'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":{"list":[],"total":7,"current_page":1,"page_size":20},"msg":"获取标签列表成功！"}'
+          schema:
+            type: string
+      summary: 标签列表
+      tags:
+      - Tag
+  /api/v1/tag/tag:
+    post:
+      parameters:
+      - description: 验证参数Bearer和token空格拼接
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 标签名称,状态,排序
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ReqTag'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":null,"msg":"添加标签成功！"}'
+          schema:
+            type: string
+      summary: 添加标签
+      tags:
+      - Tag
+  /api/v1/tag/tag/:id:
+    delete:
+      parameters:
+      - description: 验证参数Bearer和token空格拼接
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":null,"msg":"删除标签成功！"}'
+          schema:
+            type: string
+      summary: 删除标签
+      tags:
+      - Tag
+    put:
+      parameters:
+      - description: 验证参数Bearer和token空格拼接
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 标签名称,状态,排序
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ReqTag'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":null,"msg":"编辑标签成功！"}'
+          schema:
+            type: string
+      summary: 编辑标签
+      tags:
+      - Tag
+  /api/v1/user/changepassword:
+    put:
+      parameters:
+      - description: 验证参数Bearer和token空格拼接
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 旧密码,新密码,确认密码
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ChangePassword'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":null,"msg":"修改密码成功！"}'
+          schema:
+            type: string
+      summary: 修改密码
+      tags:
+      - User
+  /api/v1/user/getRoleIdByUserId/:id:
+    get:
+      parameters:
+      - description: 验证参数Bearer和token空格拼接
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 用户id, 角色id
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.AssignRole'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":null,"msg":"分配角色成功！"}'
+          schema:
+            type: string
+      summary: 分配角色
+      tags:
+      - User
+  /api/v1/user/getRouteMenuList:
+    get:
+      parameters:
+      - description: 验证参数Bearer和token空格拼接
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":{"route_tree":[]}]}]},"msg":"获得Route菜单成功！"}'
+          schema:
+            type: string
+      summary: 用户Route菜单
+      tags:
+      - User
+  /api/v1/user/getUserList:
+    get:
+      parameters:
+      - description: 验证参数Bearer和token空格拼接
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 用户名
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.UserList'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":{"list":[],"total":4,"current_page":1,"page_size":20},"msg":"获取用户列表成功！"}'
+          schema:
+            type: string
+      summary: 系统用户列表
+      tags:
+      - User
+  /api/v1/user/info:
+    get:
+      parameters:
+      - description: 验证参数Bearer和token空格拼接
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":{"id":1,"uuid":"uuid","username":"username","nickname":"nickname","avatar":"avatar","status":1,"mobile":"","email":"","roles":[]},"msg":"获得登录用户信息成功！"}'
+          schema:
+            type: string
+      summary: 登录用户基本信息
+      tags:
+      - User
+  /api/v1/user/user:
+    post:
+      parameters:
+      - description: 验证参数Bearer和token空格拼接
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 用户名,密码,昵称,状态
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.AddUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":null,"msg":"添加用户成功！"}'
+          schema:
+            type: string
+      summary: 添加系统用户
+      tags:
+      - User
+  /api/v1/user/user/:id:
+    delete:
+      parameters:
+      - description: 验证参数Bearer和token空格拼接
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":null,"msg":"删除用户成功！"}'
+          schema:
+            type: string
+      summary: 删除用户
+      tags:
+      - User
+    put:
+      parameters:
+      - description: 验证参数Bearer和token空格拼接
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 用户名,昵称
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.UpdateUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":200,"data":null,"msg":"编辑用户成功！"}'
+          schema:
+            type: string
+      summary: 编辑用户
+      tags:
+      - User
+swagger: "2.0"

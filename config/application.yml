@@ -1,0 +1,46 @@
+system:
+  env: develop
+  server-port: 9222
+  db-type: mysql
+  oss-type: local
+  use-multipoint: true
+  mode: debug
+local:
+  path: uploads/
+redis:
+  addr: 127.0.0.1:6379
+  db: 1
+  password: ""
+mysql:
+  addr: 127.0.0.1:3306
+  db-name: wave
+  username: ccroot
+  password: cc961111
+  charset: utf8mb4
+  loc: Asia/Shanghai
+  max-idle-conns: 0
+  max-open-conns: 0
+  log-mode: true
+  log-zap: ""
+captcha:
+  key-long: 5
+  img-width: 240
+  img-height: 80
+jwt:
+  secret-key: ca_secret_crect
+  expires-time: 604800
+  buffer-time: 259200
+zap:
+  level: debug
+  director: ./logs/
+  max-size: 128
+  max-backups: 30
+  max-age: 7
+  compress: true
+  format: console
+  prefix: "[wave-admin]"
+  link-name: latest_log
+  encode-level: LowercaseLevelEncoder
+  log-in-console: true
+casbin:
+  model-path: ./config/rbac_model.conf
