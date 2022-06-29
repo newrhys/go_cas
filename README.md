@@ -18,7 +18,6 @@
 
 ### swagger 文档
 
-    go get -u github.com/swaggo/swag/cmd/swag
     swag init -g main.go
 
 ### 配置文件
